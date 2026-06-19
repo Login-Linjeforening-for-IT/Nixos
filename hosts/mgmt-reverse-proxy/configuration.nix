@@ -163,7 +163,7 @@
           loadBalancer = {
             serversTransport = "insecureTransport";
             servers = [
-              {url = "https://10.20.0.10";}
+              {url = "https://10.20.0.10:10443";}
             ];
           };
         };
