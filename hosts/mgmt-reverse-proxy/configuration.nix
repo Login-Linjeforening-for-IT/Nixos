@@ -76,13 +76,16 @@
           entryPoints = ["https"];
           rule = "Host(`truenas.${domain}`)";
         };
-
-          "pelican" = {
+        "pelican" = {
           service = "pelican";
-          entryPoints = [ "https" ];
+          entryPoints = ["https"];
           rule = "Host(`pelican.${domain}`)";
         };
-
+        "pfsense" = {
+          service = "pfsense";
+          entryPoints = ["https"];
+          rule = "Host(`pfsense.${domain}`)";
+        };
       };
       http.middlewares = {
         websocket-headers = {
@@ -149,16 +152,21 @@
             ];
           };
         };
-                "pelican" = {
+        "pelican" = {
           loadBalancer = {
             servers = [
-              { url = "http://10.20.0.20"; }
+              {url = "http://10.20.0.20";}
             ];
           };
         };
-
-
-
+        "pfsense" = {
+          loadBalancer = {
+            serversTransport = "insecureTransport";
+            servers = [
+              {url = "https://10.20.0.10";}
+            ];
+          };
+        };
       };
     };
   };
