@@ -11,14 +11,6 @@
       # OpenResty on dev is the edge and terminates TLS. A second ingress (for now)
       "traefik"
     ];
-
-    extraFlags = [
-      "--etcd-s3"
-      "--etcd-s3-config-secret=k3s-etcd-s3"
-      "--etcd-snapshot-schedule-cron=0 */6 * * *"
-      "--etcd-snapshot-retention=20"
-      "--etcd-snapshot-compress"
-    ];
   };
 
   networking.firewall = {
@@ -34,4 +26,12 @@
       }
     ];
   };
+
+  environment.etc."rancher/k3s/config.yaml".text = ''
+    etcd-s3: true
+    etcd-s3-config-secret: k3s-etcd-s3
+    etcd-snapshot-schedule-cron: "0 */6 * * *"
+    etcd-snapshot-retention: 20
+    etcd-snapshot-compress: true
+  '';
 }
