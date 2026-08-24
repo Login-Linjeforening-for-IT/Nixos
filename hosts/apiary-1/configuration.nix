@@ -8,8 +8,8 @@
     clusterInit = true;
 
     disable = [
-      # OpenResty on dev is the edge and terminates TLS. A second ingress (for now)
       "traefik"
+      "servicelb"
     ];
   };
 
@@ -33,5 +33,10 @@
     etcd-snapshot-schedule-cron: "0 */6 * * *"
     etcd-snapshot-retention: 20
     etcd-snapshot-compress: true
+
+    tls-san:
+      - apiary.login.no
+      - 10.30.0.30
+      - 10.30.0.188
   '';
 }
